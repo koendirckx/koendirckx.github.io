@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Imperial College Class of 2001 — 25th Anniversary Reunion Weekend</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --parchment: #f5f0e8;
+      --parchment-dark: #ebe5d9;
+      --charcoal: #2a2a2a;
+      --charcoal-light: #555;
+      --imperial: #003E74;
+      --imperial-light: #1a5a94;
+      --gold: #c9a84c;
+      --gold-light: #e8d9a8;
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-sans: 'DM Sans', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--charcoal);
+      background: var(--parchment);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-serif); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.25), rgba(0,0,0,0.65));
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 clamp(1.5rem, 5vw, 5rem) clamp(3rem, 6vh, 6rem);
+      max-width: 900px;
+      animation: fadeUp 0.8s ease-out 0.3s both;
+    }
+    .hero-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 span { color: #f0c75e; }
+    .hero-meta {
+      display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+      color: rgba(255,255,255,0.75);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-meta .sep { color: rgba(255,255,255,0.3); margin: 0 0.3rem; }
+    .hero-desc {
+      color: rgba(255,255,255,0.65);
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      max-width: 520px;
+      line-height: 1.65;
+    }
+    .scroll-hint {
+      position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 2;
+      animation: bounce 2s infinite;
+    }
+    .scroll-hint svg { width: 20px; height: 20px; color: rgba(255,255,255,0.4); }
+
+    /* ─── OVERVIEW TABLE ─── */
+    .overview {
+      background: #fff;
+      padding: clamp(3rem, 6vw, 6rem) clamp(1.5rem, 5vw, 5rem);
+    }
+    .overview-inner { max-width: 900px; margin: 0 auto; }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(0,62,116,0.55);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--charcoal);
+      margin-bottom: 2rem;
+    }
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .schedule-table th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--imperial);
+      font-weight: 600;
+      border-bottom: 2px solid var(--imperial);
+    }
+    .schedule-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--parchment-dark);
+      color: var(--charcoal-light);
+    }
+    .schedule-table td:first-child {
+      font-weight: 600;
+      color: var(--charcoal);
+      white-space: nowrap;
+    }
+    .schedule-table tr:hover { background: rgba(245,240,232,0.5); }
+
+    /* ─── DAY CHAPTER HEADERS ─── */
+    .day-header {
+      position: relative;
+      height: 50vh;
+      min-height: 350px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .day-header img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .day-header-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.65), rgba(0,0,0,0.35), transparent);
+    }
+    .day-header-content {
+      position: relative; z-index: 2;
+      padding: clamp(1.5rem, 4vw, 5rem);
+    }
+    .day-number {
+      font-family: var(--font-serif);
+      font-size: clamp(4rem, 10vw, 7rem);
+      color: rgba(255,255,255,0.18);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .day-date {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 0.25rem;
+    }
+    .day-header h2 {
+      font-size: clamp(1.6rem, 4vw, 3rem);
+      color: #fff;
+      line-height: 1.15;
+      max-width: 500px;
+    }
+    .day-subtitle {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.9rem;
+      margin-top: 0.4rem;
+      max-width: 420px;
+    }
+
+    /* ─── ACTIVITY CARDS ─── */
+    .day-activities {
+      padding: clamp(2.5rem, 5vw, 5rem) clamp(1.5rem, 5vw, 5rem);
+      max-width: 750px;
+      margin: 0 auto;
+    }
+    .activity {
+      display: flex;
+      gap: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .activity-icon {
+      flex-shrink: 0;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--imperial);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,62,116,0.2);
+      position: relative;
+      z-index: 1;
+    }
+    .activity-icon svg { width: 20px; height: 20px; color: #fff; }
+    .activity-body { flex: 1; padding-bottom: 2rem; border-left: 1px solid rgba(0,62,116,0.12); padding-left: 1.5rem; margin-left: -1rem; }
+    .activity:last-child .activity-body { border-left: none; }
+    .activity-meta {
+      display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+      margin-bottom: 0.4rem;
+    }
+    .activity-time {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(0,62,116,0.6);
+      font-weight: 500;
+    }
+    .activity-tag {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+    }
+    .tag-travel { background: rgba(0,62,116,0.08); color: var(--imperial); }
+    .tag-nostalgia { background: #fef3c7; color: #92400e; }
+    .tag-engineering { background: #e2e8f0; color: #475569; }
+    .tag-dining { background: #ffedd5; color: #9a3412; }
+    .tag-live { background: #ffe4e6; color: #9f1239; }
+    .tag-adventure { background: #ccfbf1; color: #115e59; }
+    .tag-sightseeing { background: #e0f2fe; color: #0369a1; }
+    .tag-celebration { background: #f3e8ff; color: #7e22ce; }
+
+    .activity h3 {
+      font-size: clamp(1.15rem, 2vw, 1.4rem);
+      color: var(--charcoal);
+      margin-bottom: 0.4rem;
+      transition: color 0.3s;
+    }
+    .activity:hover h3 { color: var(--imperial); }
+    .activity p {
+      font-size: 0.92rem;
+      color: rgba(85,85,85,0.85);
+      max-width: 580px;
+      margin-bottom: 0.6rem;
+    }
+    .tip, .alt-tip {
+      border-left: 2px solid;
+      padding: 0.3rem 0 0.3rem 1rem;
+      margin-top: 0.4rem;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: rgba(85,85,85,0.7);
+    }
+    .tip { border-color: rgba(0,62,116,0.25); }
+    .alt-tip { border-color: rgba(201,168,76,0.5); }
+    .tip-label { font-style: normal; font-weight: 600; color: var(--imperial); }
+    .alt-label { font-style: normal; font-weight: 600; color: #b45309; }
+
+    /* ─── DAY DIVIDER ─── */
+    .day-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(0,62,116,0.15), transparent);
+    }
+
+    /* ─── FEATURE: QUEEN'S TOWER ─── */
+    .feature-split {
+      background: #fff;
+      padding: clamp(3rem, 6vw, 6rem) clamp(1.5rem, 5vw, 5rem);
+    }
+    .feature-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 4rem);
+      align-items: center;
+    }
+    .feature-img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+    .feature-text .section-title { margin-bottom: 1.25rem; line-height: 1.2; }
+    .feature-text p {
+      font-size: 0.95rem;
+      color: rgba(85,85,85,0.8);
+      line-height: 1.7;
+      margin-bottom: 0.8rem;
+    }
+    .feature-contact {
+      border-left: 2px solid var(--imperial);
+      padding-left: 1rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: rgba(85,85,85,0.55);
+      font-style: italic;
+    }
+    .feature-contact a {
+      color: var(--imperial);
+      font-style: normal;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    /* ─── FEATURE: SUNDAY ROAST ─── */
+    .roast-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .roast-text {
+      background: var(--imperial);
+      padding: clamp(3rem, 6vw, 6rem) clamp(2rem, 5vw, 5rem);
+      display: flex; align-items: center;
+    }
+    .roast-text .section-label { color: rgba(255,255,255,0.4); }
+    .roast-text h2 { color: #fff; font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 1.25rem; }
+    .roast-text p { color: rgba(255,255,255,0.65); font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.8rem; }
+    .roast-img {
+      height: 100%; min-height: 400px;
+      object-fit: cover;
+    }
+
+    /* ─── CHECKLIST ─── */
+    .checklist-section {
+      padding: clamp(3rem, 6vw, 6rem) clamp(1.5rem, 5vw, 5rem);
+      text-align: center;
+    }
+    .checklist-section .section-title { margin-bottom: 0.5rem; }
+    .checklist-intro {
+      font-size: 0.85rem;
+      color: var(--charcoal-light);
+      opacity: 0.7;
+      max-width: 420px;
+      margin: 0 auto 2rem;
+    }
+    .checklist {
+      max-width: 560px;
+      margin: 0 auto;
+      display: flex; flex-direction: column; gap: 0.6rem;
+    }
+    .checklist-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 0.85rem 1.1rem;
+      background: #fff;
+      border: 1px solid var(--parchment-dark);
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.25s;
+      user-select: none;
+    }
+    .checklist-item:hover {
+      border-color: rgba(0,62,116,0.25);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .checklist-item.checked {
+      background: rgba(0,62,116,0.04);
+      border-color: rgba(0,62,116,0.18);
+    }
+    .check-box {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      border: 2px solid #ccc;
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+      transition: all 0.2s;
+    }
+    .checked .check-box {
+      background: var(--imperial);
+      border-color: var(--imperial);
+    }
+    .check-box svg { width: 14px; height: 14px; color: #fff; display: none; }
+    .checked .check-box svg { display: block; }
+    .check-label { font-size: 0.88rem; font-weight: 500; color: var(--charcoal); transition: all 0.2s; }
+    .checked .check-label { color: var(--imperial); text-decoration: line-through; }
+    .check-detail { font-size: 0.75rem; color: var(--charcoal-light); opacity: 0.55; margin-top: 0.1rem; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--imperial);
+      padding: clamp(3rem, 5vw, 4rem) 2rem;
+      text-align: center;
+    }
+    footer h3 { font-size: clamp(1.4rem, 3vw, 1.8rem); color: #fff; margin-bottom: 0.5rem; }
+    footer .footer-sub { color: rgba(255,255,255,0.45); font-size: 0.8rem; margin-bottom: 1rem; }
+    footer .footer-meta {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap;
+      color: rgba(255,255,255,0.25);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+    }
+
+    /* ─── STICKY NAV ─── */
+    .sticky-nav {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      border-radius: 999px;
+      padding: 0.35rem 0.5rem;
+      display: flex; align-items: center; gap: 0.2rem;
+      border: 1px solid var(--parchment-dark);
+      animation: fadeUp 0.5s ease-out 1.5s both;
+    }
+    .sticky-nav a {
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      color: var(--charcoal-light);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .sticky-nav a:hover {
+      background: var(--imperial);
+      color: #fff;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+    .animate-in {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .animate-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .feature-grid { grid-template-columns: 1fr; }
+      .feature-img { height: 300px; }
+      .roast-split { grid-template-columns: 1fr; }
+      .roast-img { min-height: 280px; }
+      .schedule-table { font-size: 0.78rem; }
+      .schedule-table th, .schedule-table td { padding: 0.6rem 0.5rem; }
+      .activity-body { padding-left: 1rem; margin-left: -0.75rem; }
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--parchment); }
+    ::-webkit-scrollbar-thumb { background: #c4bfb3; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #a09a8e; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <img class="hero-img" src="https://d2xsxph8kpxj0f.cloudfront.net/310519663318520997/VQaMfoae7ARj3qBHkBDAhX/hero-london-skyline-SnU8sBWBwHzgcGnjJcbcbD.webp" alt="London skyline at golden hour" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-label">Imperial College London &middot; Civil Engineering &middot; Class of 2001</p>
+      <h1>25th Anniversary<br><span>Reunion Weekend</span></h1>
+      <div class="hero-meta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        26 – 29 June 2026
+        <span class="sep">|</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        London, England
+      </div>
+      <p class="hero-desc">A long weekend of nostalgia, engineering marvels, and celebration — from South Kensington to the Thames and beyond.</p>
+    </div>
+    <div class="scroll-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- ═══ OVERVIEW TABLE ═══ -->
+  <section class="overview">
+    <div class="overview-inner animate-in">
+      <p class="section-label">At a Glance</p>
+      <h2 class="section-title">Your Weekend Schedule</h2>
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>Day</th><th>Morning</th><th>Afternoon</th><th>Evening</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Friday 26th</td><td>—</td><td>Arrival &amp; Check-in</td><td>South Kensington Pub Night</td></tr>
+          <tr><td>Saturday 27th</td><td>Engineering Walking Tour</td><td>Imperial Campus &amp; Queen's Tower</td><td>BST Hyde Park Festival</td></tr>
+          <tr><td>Sunday 28th</td><td>Thames Speedboat Experience</td><td>Sky Garden &amp; City Views</td><td>Group Celebration Dinner</td></tr>
+          <tr><td>Monday 29th</td><td>Wimbledon Day One</td><td>Farewell Brunch &amp; Departures</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══ DAY 01: FRIDAY ═══ -->
+  <section id="day-01">
+    <div class="day-header">
+      <img src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=1200&q=80" alt="South Kensington London" />
+      <div class="day-header-overlay"></div>
+      <div class="day-header-content animate-in">
+        <div class="day-number">01</div>
+        <p class="day-date">Friday &middot; 26 June 2026</p>
+        <h2>Arrival &amp; South Kensington Welcome</h2>
+        <p class="day-subtitle">Reconnect over pints at your old stomping grounds</p>
+      </div>
+    </div>
+    <div class="day-activities">
+      <div class="activity animate-in">
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22l10-10M17 2l5 5-5 5M12 17l5 5"/><path d="M2 12h10"/></svg>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span class="activity-time">Afternoon</span>
+            <span class="activity-tag tag-travel">Travel</span>
+          </div>
+          <h3>Arrival &amp; Check-in</h3>
+          <p>Arrive in London and settle into your accommodation. Take a moment to stretch your legs and soak in the familiar South Kensington streets.</p>
+        </div>
+      </div>
+      <div class="activity animate-in">
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 11h1a3 3 0 010 6h-1"/><path d="M9 12v6"/><path d="M13 12v6"/><path d="M14 7.5c-1 0-1.44.5-3 .5s-2-.5-3-.5-1.72.5-2.5.5a2.5 2.5 0 010-5c.78 0 1.57.5 2.5.5S9.44 3 11 3s2 .5 3 .5 1.72-.5 2.5-.5a2.5 2.5 0 010 5c-.78 0-1.5-.5-2.5-.5z"/><path d="M5 8v12a2 2 0 002 2h8a2 2 0 002-2V8"/></svg>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span class="activity-time">Evening</span>
+            <span class="activity-tag tag-nostalgia">Nostalgia</span>
+          </div>
+          <h3>Nostalgic Pub Night</h3>
+          <p>Head back to your old stomping grounds for a relaxed pub evening dedicated to reconnecting and reminiscing. Twenty-five years of stories to catch up on — best done over a proper pint.</p>
+          <div class="tip">
+            <span class="tip-label">Tip:</span> Start at <strong>The Queen's Arms</strong> (30 Queen's Gate Mews, SW7 5QL), a classic and unpretentious pub just a stone's throw from campus. Afterwards, take a short walk to see the Imperial College Union bars — <strong>FiveSixEight</strong> and the <strong>Beit Bars</strong> — for a true nostalgia trip.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="day-divider"></div>
+
+  <!-- ═══ DAY 02: SATURDAY ═══ -->
+  <section id="day-02">
+    <div class="day-header">
+      <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663318520997/VQaMfoae7ARj3qBHkBDAhX/tower-bridge-engineering-iD4xWMgJtGR7GKmZgbMZ3p.webp" alt="Tower Bridge London" />
+      <div class="day-header-overlay"></div>
+      <div class="day-header-content animate-in">
+        <div class="day-number">02</div>
+        <p class="day-date">Saturday &middot; 27 June 2026</p>
+        <h2>Engineering Marvels &amp; Hyde Park Music</h2>
+        <p class="day-subtitle">From Millennium Bridge to BST Hyde Park — a day of wonder</p>
+      </div>
+    </div>
+    <div class="day-activities">
+      <div class="activity animate-in">
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 18v3h20v-3"/><path d="M2 14v4h20v-4"/><rect x="6" y="10" width="4" height="4"/><rect x="14" y="10" width="4" height="4"/><path d="M10 10V6l2-2 2 2v4"/></svg>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span class="activity-time">Morning</span>
+            <span class="activity-tag tag-engineering">Engineering</span>
+          </div>
+          <h3>Engineering Walking Tour</h3>
+          <p>Start the day with a celebration of your shared profession. A walking tour focusing on London's engineering landmarks — the Millennium Bridge, Tower Bridge, and the architectural marvels of the City.</p>
+          <div class="tip">
+            <span class="tip-label">Tip:</span> Guided tours are available from <strong>Charnowalks</strong> or <strong>Buro Happold</strong>. Don't miss a group photo at the <strong>Institution of Civil Engineers (ICE)</strong> at One Great George Street, Westminster.
+          </div>
+        </div>
+      </div>
+      <div class="activity animate-in">
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3"/></svg>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span class="activity-time">Lunch</span>
+            <span class="activity-tag tag-dining">Dining</span>
+          </div>
+          <h3>Pub Lunch in the City</h3>
+          <p>After your walk, enjoy a well-deserved lunch at a traditional London pub in the City. Refuel before the afternoon's adventures.</p>
+        </div>
+      </div>
+      <div class="activity animate-in">
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 10 3 12 0v-5"/></svg>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span class="activity-time">Afternoon</span>
+            <span class="activity-tag tag-nostalgia">Nostalgia</span>
+          </div>
+          <h3>A Return to Imperial</h3>
+          <p>Head back to South Kensington for a walk around the Imperial College campus. See how much has changed and what has stayed the same.</p>
+          <div class="tip">
+            <span class="tip-label">Tip:</span> Pre-book a tour of the <strong>Queen's Tower</strong>, the iconic 287-foot (87m) landmark from the original Imperial Institute. It offers a fantastic view and a unique alumni experience. Contact <strong>reunions@imperial.ac.uk</strong>.
+          </div>
+        </div>
+      </div>
+      <div class="activity animate-in">
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span class="activity-time">Evening</span>
+            <span class="activity-tag tag-live">Live Event</span>
+          </div>
+          <h3>BST Hyde Park Festival</h3>
+          <p>Your weekend coincides with the opening Saturday of <strong>BST Hyde Park</strong>, located right on your doorstep. This year features country superstar <strong>Garth Brooks</strong>, along with <strong>Zac Brown Band</strong> and <strong>Ashley McBryde</strong>.</p>
+          <div class="tip">
+            <span class="tip-label">Tip:</span> Tickets should be booked well in advance at <strong>bst-hydepark.com</strong>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="day-divider"></div>
+
+  <!-- ═══ DAY 03: SUNDAY ═══ -->
+  <section id="day-03">
+    <div class="day-header">
+      <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663318520997/VQaMfoae7ARj3qBHkBDAhX/thames-speedboat-U3AdrMpXXg3PDuXQEJD2RK.webp" alt="Thames speedboat experience" />
+      <div class="day-header-overlay"></div>
+      <div class="day-header-content animate-in">
+        <div class="day-number">03</div>
+        <p class="day-date">Sunday &middot; 28 June 2026</p>
+        <h2>River Views, Historic Engineering &amp; Celebration</h2>
+        <p class="day-subtitle">Speedboats, skyline views, and a Sunday roast to remember</p>
+      </div>
+    </div>
+    <div class="day-activities">
+      <div class="activity animate-in">
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20a6 6 0 0112 0"/><path d="M14 20a6 6 0 0112 0"/><path d="M12 12V2l4 2-4 2"/></svg>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span class="activity-time">Morning</span>
+            <span class="activity-tag tag-adventure">Adventure</span>
+          </div>
+          <h3>Thames Speedboat Experience</h3>
+          <p>Experience the thrill of a high-speed RIB boat trip on the Thames. An exhilarating ride combining sightseeing with adrenaline — a unique way to see London's riverside landmarks, including the <strong>Thames Barrier</strong>.</p>
+          <div class="alt-tip">
+            <span class="alt-label">Alternative:</span> For a more historical engineering focus, consider a visit to the <strong>Brunel Museum</strong> in Rotherhithe to learn about the Thames Tunnel — the first tunnel under a navigable river anywhere in the world.
+          </div>
+        </div>
+      </div>
+      <div class="activity animate-in">
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 13.87A4 4 0 017.41 6a5.11 5.11 0 011.05-1.54 5 5 0 017.08 0A5.11 5.11 0 0116.59 6 4 4 0 0118 13.87V21H6z"/><line x1="6" y1="17" x2="18" y2="17"/></svg>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span class="activity-time">Lunch</span>
+            <span class="activity-tag tag-dining">Dining</span>
+          </div>
+          <h3>The Great British Sunday Roast</h3>
+          <p>No weekend in London is complete without a proper Sunday Roast. Book a table for your group at a top-rated pub and enjoy roast beef, Yorkshire pudding, and all the trimmings.</p>
+          <div class="tip">
+            <span class="tip-label">Tip:</span> Near your South Kensington base, <strong>The Hereford Arms</strong> is excellent. For some of London's best, consider <strong>Hawksmoor</strong> or <strong>The Angel Inn</strong> in Highgate.
+          </div>
+        </div>
+      </div>
+      <div class="activity animate-in">
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span class="activity-time">Afternoon</span>
+            <span class="activity-tag tag-sightseeing">Sightseeing</span>
+          </div>
+          <h3>Panoramic City Views</h3>
+          <p>Head up high for a breathtaking perspective of the city you once called home. <strong>Sky Garden</strong> offers free 360-degree views (book ahead at groups@skygarden.london), or splash out on <strong>The View from The Shard</strong> — the highest viewing platform in Western Europe.</p>
+        </div>
+      </div>
+      <div class="activity animate-in">
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 22h8"/><path d="M7 10h10"/><path d="M12 15v7"/><path d="M12 15a5 5 0 005-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 005 5z"/></svg>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span class="activity-time">Evening</span>
+            <span class="activity-tag tag-celebration">Celebration</span>
+          </div>
+          <h3>Group Celebration Dinner</h3>
+          <p>For your final evening together, enjoy a special celebration dinner. Consider a restaurant with a private dining room to make the occasion truly memorable.</p>
+          <div class="tip">
+            <span class="tip-label">Tip:</span> <strong>The Other House</strong> in South Kensington has an intimate private dining room for 8 (the Mervyn Peake room). For a grander experience, consider <strong>Daphne's</strong> in South Kensington or one of <strong>Gordon Ramsay's</strong> restaurants.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="day-divider"></div>
+
+  <!-- ═══ DAY 04: MONDAY ═══ -->
+  <section id="day-04">
+    <div class="day-header">
+      <img src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=1200&q=80" alt="Wimbledon tennis" />
+      <div class="day-header-overlay"></div>
+      <div class="day-header-content animate-in">
+        <div class="day-number">04</div>
+        <p class="day-date">Monday &middot; 29 June 2026</p>
+        <h2>Wimbledon &amp; Farewell</h2>
+        <p class="day-subtitle">Day One of the Championships, then a final brunch together</p>
+      </div>
+    </div>
+    <div class="day-activities">
+      <div class="activity animate-in">
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 010-5C7 4 9 8 9 8s2-4 4.5-4a2.5 2.5 0 010 5H12"/><path d="M12 8v13"/><path d="M5 12h14"/><rect x="3" y="9" width="18" height="13" rx="2"/></svg>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span class="activity-time">Morning</span>
+            <span class="activity-tag tag-live">Live Event</span>
+          </div>
+          <h3>The Wimbledon Experience</h3>
+          <p>Your trip coincides with the first day of the <strong>Wimbledon Championships</strong>. The famous <strong>Wimbledon Queue</strong> is an experience in itself — arriving early could secure you a Grounds Pass to wander the outside courts and watch on Henman Hill.</p>
+          <div class="tip">
+            <span class="tip-label">Tip:</span> Alternatively, soak up the atmosphere at a nearby pub showing the matches live.
+          </div>
+        </div>
+      </div>
+      <div class="activity animate-in">
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8h1a4 4 0 110 8h-1"/><path d="M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span class="activity-time">Lunch</span>
+            <span class="activity-tag tag-dining">Dining</span>
+          </div>
+          <h3>Farewell Brunch</h3>
+          <p>Enjoy a final meal together before heading your separate ways. Raise one last glass to 25 years of friendship and the memories you've made this weekend.</p>
+          <div class="tip">
+            <span class="tip-label">Tip:</span> <strong>The Wolseley</strong> on Piccadilly is a classic grand café experience. For something more relaxed, try one of the many brunch spots in Covent Garden or Soho.
+          </div>
+        </div>
+      </div>
+      <div class="activity animate-in">
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span class="activity-time">Afternoon</span>
+            <span class="activity-tag tag-travel">Travel</span>
+          </div>
+          <h3>Departures</h3>
+          <p>Head to the airport or station for your journey home, filled with new memories and re-kindled friendships. Until the next reunion!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ QUEEN'S TOWER FEATURE ═══ -->
+  <section class="feature-split">
+    <div class="feature-grid">
+      <div class="animate-in">
+        <img class="feature-img" src="https://d2xsxph8kpxj0f.cloudfront.net/310519663318520997/VQaMfoae7ARj3qBHkBDAhX/imperial-college-tower-P8xs9zUyY5y8gPkn7vXvTB.webp" alt="Queen's Tower, Imperial College London" />
+      </div>
+      <div class="feature-text animate-in">
+        <p class="section-label">Where It All Began</p>
+        <h2 class="section-title">The Queen's Tower &amp;<br>Your Imperial Legacy</h2>
+        <p>Standing at 287 feet, the Queen's Tower is the last remaining structure of the original Imperial Institute, built in 1893. It has watched over generations of Imperial students — including your class of 2001.</p>
+        <p>Alumni can arrange a guided tour to climb the 324 steps to the top, offering panoramic views across London. It's the perfect backdrop for a group photo that marks a quarter-century since you walked these grounds as students.</p>
+        <div class="feature-contact">
+          Contact the Alumni office at <a href="mailto:reunions@imperial.ac.uk">reunions@imperial.ac.uk</a> to arrange your visit.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SUNDAY ROAST FEATURE ═══ -->
+  <section class="roast-split">
+    <div class="roast-text">
+      <div class="animate-in">
+        <p class="section-label">A British Tradition</p>
+        <h2>The Sunday Roast</h2>
+        <p>No reunion weekend in London would be complete without gathering around a table for a proper Sunday Roast. Crispy Yorkshire puddings, perfectly roasted beef, golden potatoes, and rich gravy — it's the taste of home.</p>
+        <p>Book a long table at a top gastropub and let the conversation flow. After 25 years, there's plenty to talk about.</p>
+      </div>
+    </div>
+    <img class="roast-img" src="https://d2xsxph8kpxj0f.cloudfront.net/310519663318520997/VQaMfoae7ARj3qBHkBDAhX/sunday-roast-TYuWs4nvXceqJaYhi49wWN.webp" alt="Traditional Sunday Roast" />
+  </section>
+
+  <!-- ═══ BOOKING CHECKLIST ═══ -->
+  <section class="checklist-section">
+    <div class="animate-in">
+      <p class="section-label">Don't Forget</p>
+      <h2 class="section-title">Booking Checklist</h2>
+      <p class="checklist-intro">Tick off each item as you go. Book early to secure the best spots for your group of eight.</p>
+    </div>
+    <div class="checklist">
+      <div class="checklist-item animate-in" onclick="this.classList.toggle('checked')">
+        <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div class="check-label">Accommodation</div><div class="check-detail">South Kensington area recommended</div></div>
+      </div>
+      <div class="checklist-item animate-in" onclick="this.classList.toggle('checked')">
+        <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div class="check-label">Queen's Tower Tour</div><div class="check-detail">Via Imperial Alumni office — reunions@imperial.ac.uk</div></div>
+      </div>
+      <div class="checklist-item animate-in" onclick="this.classList.toggle('checked')">
+        <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div class="check-label">BST Hyde Park tickets</div><div class="check-detail">bst-hydepark.com — book early</div></div>
+      </div>
+      <div class="checklist-item animate-in" onclick="this.classList.toggle('checked')">
+        <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div class="check-label">Thames RIB Experience</div><div class="check-detail">thamesribexperience.com — group bookings</div></div>
+      </div>
+      <div class="checklist-item animate-in" onclick="this.classList.toggle('checked')">
+        <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div class="check-label">Sunday Roast reservation</div><div class="check-detail">The Hereford Arms or Hawksmoor</div></div>
+      </div>
+      <div class="checklist-item animate-in" onclick="this.classList.toggle('checked')">
+        <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div class="check-label">Sky Garden tickets</div><div class="check-detail">Free — email groups@skygarden.london</div></div>
+      </div>
+      <div class="checklist-item animate-in" onclick="this.classList.toggle('checked')">
+        <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div class="check-label">Celebration dinner reservation</div><div class="check-detail">The Other House or Daphne's</div></div>
+      </div>
+      <div class="checklist-item animate-in" onclick="this.classList.toggle('checked')">
+        <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div class="check-label">Farewell brunch reservation</div><div class="check-detail">The Wolseley — book ahead</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <h3>Here's to 25 Years</h3>
+    <p class="footer-sub">Imperial College London &middot; Civil Engineering &middot; Class of 2001</p>
+    <div class="footer-meta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      26 – 29 June 2026
+      <span style="margin: 0 0.3rem;">|</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      London, England
+    </div>
+  </footer>
+
+  <!-- ═══ STICKY NAV ═══ -->
+  <nav class="sticky-nav">
+    <a href="#day-01">Fri</a>
+    <a href="#day-02">Sat</a>
+    <a href="#day-03">Sun</a>
+    <a href="#day-04">Mon</a>
+  </nav>
+
+  <!-- ═══ SCROLL ANIMATION SCRIPT ═══ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.animate-in').forEach(function(el) {
+        observer.observe(el);
+      });
+    });
+  </script>
+
+</body>
+</html>
